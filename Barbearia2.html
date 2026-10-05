@@ -1,0 +1,2728 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BLACK BARBER | Barbearia Premium</title>
+
+    <style>
+        :root {
+            --preto: #080808;
+            --preto-2: #111111;
+            --preto-3: #181818;
+            --dourado: #c9a227;
+            --dourado-claro: #e5c766;
+            --branco: #ffffff;
+            --cinza: #b5b5b5;
+            --cinza-escuro: #242424;
+            --borda: rgba(201, 162, 39, 0.22);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--preto);
+            color: var(--branco);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        ::selection {
+            background: var(--dourado);
+            color: #000;
+        }
+
+        /* =========================
+           SCROLLBAR
+        ========================= */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--preto);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--dourado);
+            border-radius: 20px;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            padding: 22px 6%;
+
+            background: rgba(8, 8, 8, 0.72);
+            backdrop-filter: blur(14px);
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+            transition: 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 14px 6%;
+            background: rgba(8, 8, 8, 0.96);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45);
+        }
+
+        .header-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            color: var(--branco);
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            color: var(--dourado);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        nav a {
+            position: relative;
+
+            color: #dddddd;
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: 0.3s ease;
+        }
+
+        nav a:not(.nav-button)::after {
+            content: "";
+
+            position: absolute;
+            left: 0;
+            bottom: -7px;
+
+            width: 0;
+            height: 2px;
+
+            background: var(--dourado);
+
+            transition: 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--dourado);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-button {
+            padding: 11px 19px;
+
+            background: var(--dourado);
+            color: #000;
+
+            border-radius: 4px;
+
+            font-weight: 800;
+
+            transition: 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: var(--dourado-claro);
+            transform: translateY(-2px);
+        }
+
+        .menu-button {
+            display: none;
+
+            border: none;
+            background: transparent;
+
+            color: var(--dourado);
+
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 100vh;
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            padding: 150px 7% 90px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0, 0, 0, 0.94) 0%,
+                    rgba(0, 0, 0, 0.72) 45%,
+                    rgba(0, 0, 0, 0.20) 100%
+                ),
+                url("https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=2000&q=90")
+                center / cover no-repeat;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    circle at 75% 50%,
+                    rgba(201, 162, 39, 0.13),
+                    transparent 35%
+                );
+
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            max-width: 680px;
+
+            animation: heroIn 1s ease forwards;
+        }
+
+        @keyframes heroIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+
+            margin-bottom: 20px;
+
+            color: var(--dourado);
+
+            font-size: 11px;
+            font-weight: 800;
+
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .hero-tag::before {
+            content: "";
+
+            width: 35px;
+            height: 1px;
+
+            background: var(--dourado);
+        }
+
+        .hero h1 {
+            margin-bottom: 22px;
+
+            color: var(--branco);
+
+            font-family: Georgia, serif;
+
+            font-size: clamp(52px, 8vw, 90px);
+
+            font-weight: normal;
+
+            line-height: 0.98;
+        }
+
+        .hero h1 span {
+            color: var(--dourado);
+        }
+
+        .hero p {
+            max-width: 560px;
+
+            margin-bottom: 32px;
+
+            color: rgba(255, 255, 255, 0.72);
+
+            font-size: 16px;
+
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 14px 26px;
+
+            border-radius: 3px;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            border: 1px solid transparent;
+
+            transition: 0.3s ease;
+        }
+
+        .button-gold {
+            background: var(--dourado);
+            color: #000;
+
+            box-shadow: 0 12px 30px rgba(201, 162, 39, 0.18);
+        }
+
+        .button-gold:hover {
+            background: var(--dourado-claro);
+            transform: translateY(-4px);
+        }
+
+        .button-outline {
+            background: transparent;
+            color: var(--branco);
+
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .button-outline:hover {
+            border-color: var(--dourado);
+            color: var(--dourado);
+            transform: translateY(-4px);
+        }
+
+        /* =========================
+           SEÇÕES
+        ========================= */
+
+        section {
+            padding: 100px 7%;
+        }
+
+        .section-title {
+            max-width: 680px;
+
+            margin: 0 auto 55px;
+
+            text-align: center;
+        }
+
+        .section-title small {
+            color: var(--dourado);
+
+            font-size: 11px;
+            font-weight: 800;
+
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            margin: 12px 0 16px;
+
+            color: var(--branco);
+
+            font-family: Georgia, serif;
+
+            font-size: clamp(37px, 5vw, 55px);
+
+            font-weight: normal;
+        }
+
+        .section-title p {
+            color: var(--cinza);
+
+            font-size: 14px;
+
+            line-height: 1.8;
+        }
+
+        /* =========================
+           SERVIÇOS
+        ========================= */
+
+        #servicos {
+            background: var(--preto-2);
+        }
+
+        .services-grid {
+            width: 100%;
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .service-card {
+            position: relative;
+
+            padding: 35px 25px;
+
+            background: var(--preto-3);
+
+            border: 1px solid var(--borda);
+
+            text-align: center;
+
+            transition: 0.4s ease;
+
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 3px;
+
+            background: var(--dourado);
+
+            transform: scaleX(0);
+            transform-origin: left;
+
+            transition: 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-9px);
+
+            border-color: rgba(201, 162, 39, 0.55);
+
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 62px;
+            height: 62px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid var(--borda);
+
+            color: var(--dourado);
+
+            font-size: 26px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 10px;
+
+            color: var(--branco);
+
+            font-family: Georgia, serif;
+
+            font-size: 21px;
+            font-weight: normal;
+        }
+
+        .service-card p {
+            margin-bottom: 18px;
+
+            color: #858585;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+        .service-price {
+            color: var(--dourado);
+
+            font-size: 17px;
+
+            font-weight: 800;
+        }
+
+        /* =========================
+           GALERIA
+        ========================= */
+
+        #galeria {
+            background: #0d0d0d;
+        }
+
+        .gallery-grid {
+            width: 100%;
+            max-width: 1000px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .gallery-item {
+            position: relative;
+
+            aspect-ratio: 1 / 1;
+
+            overflow: hidden;
+
+            border: 1px solid rgba(255, 255, 255, 0.10);
+
+            cursor: pointer;
+
+            background: var(--preto-3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: 0.6s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(0, 0, 0, 0.55);
+
+            color: var(--dourado);
+
+            font-size: 30px;
+
+            opacity: 0;
+
+            transition: 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* =========================
+           SOBRE
+        ========================= */
+
+        #sobre {
+            background: var(--preto-2);
+        }
+
+        .about {
+            width: 100%;
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            align-items: center;
+
+            gap: 70px;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image::after {
+            content: "";
+
+            position: absolute;
+
+            top: 18px;
+            left: 18px;
+
+            width: 100%;
+            height: 100%;
+
+            border: 1px solid var(--dourado);
+
+            pointer-events: none;
+        }
+
+        .about-image img {
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+            height: 520px;
+
+            object-fit: cover;
+        }
+
+        .about-text small {
+            color: var(--dourado);
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 4px;
+
+            text-transform: uppercase;
+        }
+
+        .about-text h2 {
+            margin: 13px 0 20px;
+
+            color: var(--branco);
+
+            font-family: Georgia, serif;
+
+            font-size: clamp(37px, 5vw, 55px);
+
+            font-weight: normal;
+
+            line-height: 1.05;
+        }
+
+        .about-text p {
+            margin-bottom: 17px;
+
+            color: var(--cinza);
+
+            font-size: 14px;
+
+            line-height: 1.9;
+        }
+
+        .about-list {
+            margin-top: 25px;
+
+            display: grid;
+
+            gap: 13px;
+        }
+
+        .about-list div {
+            color: #ddd;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+        .about-list span {
+            margin-right: 8px;
+
+            color: var(--dourado);
+        }
+
+        /* =========================
+           DIFERENCIAIS
+        ========================= */
+
+        .features {
+            padding: 75px 7%;
+
+            background: var(--dourado);
+
+            color: #000;
+        }
+
+        .features-grid {
+            width: 100%;
+            max-width: 1050px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 25px;
+        }
+
+        .feature {
+            text-align: center;
+        }
+
+        .feature-icon {
+            margin-bottom: 10px;
+
+            font-size: 30px;
+        }
+
+        .feature h3 {
+            margin-bottom: 5px;
+
+            font-size: 15px;
+        }
+
+        .feature p {
+            color: rgba(0, 0, 0, 0.65);
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+        /* =========================
+           EQUIPE
+        ========================= */
+
+        #equipe {
+            background: var(--preto);
+        }
+
+        .team-grid {
+            width: 100%;
+            max-width: 1000px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 22px;
+        }
+
+        .team-card {
+            text-align: center;
+
+            background: var(--preto-2);
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+
+            transition: 0.4s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-7px);
+
+            border-color: var(--borda);
+        }
+
+        .team-image {
+            height: 330px;
+
+            overflow: hidden;
+        }
+
+        .team-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: 0.5s ease;
+        }
+
+        .team-card:hover .team-image img {
+            transform: scale(1.05);
+        }
+
+        .team-info {
+            padding: 22px;
+        }
+
+        .team-info h3 {
+            margin-bottom: 5px;
+
+            font-family: Georgia, serif;
+
+            font-size: 20px;
+
+            font-weight: normal;
+        }
+
+        .team-info p {
+            color: var(--dourado);
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+        /* =========================
+           DEPOIMENTOS
+        ========================= */
+
+        #depoimentos {
+            background: var(--preto-2);
+        }
+
+        .testimonials {
+            width: 100%;
+            max-width: 1050px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .testimonial {
+            padding: 30px;
+
+            background: var(--preto-3);
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+
+            transition: 0.3s ease;
+        }
+
+        .testimonial:hover {
+            border-color: var(--borda);
+
+            transform: translateY(-5px);
+        }
+
+        .stars {
+            margin-bottom: 15px;
+
+            color: var(--dourado);
+
+            letter-spacing: 3px;
+        }
+
+        .testimonial p {
+            margin-bottom: 20px;
+
+            color: #999;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+
+            font-style: italic;
+        }
+
+        .testimonial h4 {
+            color: var(--branco);
+
+            font-size: 13px;
+        }
+
+        /* =========================
+           FAQ
+        ========================= */
+
+        #faq {
+            background: #0d0d0d;
+        }
+
+        .faq {
+            width: 100%;
+            max-width: 800px;
+
+            margin: auto;
+        }
+
+        .faq-item {
+            margin-bottom: 10px;
+
+            background: var(--preto-2);
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .faq-question {
+            width: 100%;
+
+            padding: 21px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border: none;
+
+            background: transparent;
+
+            color: var(--branco);
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            text-align: left;
+
+            cursor: pointer;
+        }
+
+        .faq-question span {
+            color: var(--dourado);
+
+            font-size: 23px;
+
+            transition: 0.3s ease;
+        }
+
+        .faq-answer {
+            max-height: 0;
+
+            overflow: hidden;
+
+            padding: 0 21px;
+
+            color: #858585;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            transition: 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 150px;
+
+            padding-bottom: 20px;
+        }
+
+        .faq-item.active .faq-question span {
+            transform: rotate(45deg);
+        }
+
+        /* =========================
+           AGENDAMENTO
+        ========================= */
+
+        .booking {
+            position: relative;
+
+            padding: 110px 7%;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.86),
+                    rgba(0, 0, 0, 0.86)
+                ),
+                url("https://images.unsplash.com/photo-1512690459411-b9245aed614b?auto=format&fit=crop&w=1800&q=90")
+                center / cover no-repeat;
+
+            text-align: center;
+        }
+
+        .booking-content {
+            max-width: 700px;
+
+            margin: auto;
+        }
+
+        .booking small {
+            color: var(--dourado);
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            letter-spacing: 4px;
+        }
+
+        .booking h2 {
+            margin: 13px 0 17px;
+
+            font-family: Georgia, serif;
+
+            font-size: clamp(40px, 5vw, 58px);
+
+            font-weight: normal;
+        }
+
+        .booking p {
+            margin-bottom: 30px;
+
+            color: #999;
+
+            line-height: 1.8;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 50px 7% 25px;
+
+            background: #050505;
+        }
+
+        .footer-content {
+            width: 100%;
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+        .footer-logo {
+            font-size: 22px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+        }
+
+        .footer-logo span {
+            color: var(--dourado);
+        }
+
+        .socials {
+            display: flex;
+
+            gap: 9px;
+        }
+
+        .socials a {
+            width: 39px;
+            height: 39px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border: 1px solid rgba(255, 255, 255, 0.12);
+
+            color: #aaa;
+
+            transition: 0.3s ease;
+        }
+
+        .socials a:hover {
+            border-color: var(--dourado);
+
+            color: var(--dourado);
+
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            width: 100%;
+            max-width: 1100px;
+
+            margin: 30px auto 0;
+
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+            color: #555;
+
+            text-align: center;
+
+            font-size: 11px;
+        }
+
+        /* =========================
+           WHATSAPP
+        ========================= */
+
+        .whatsapp {
+            position: fixed;
+
+            right: 22px;
+            bottom: 22px;
+
+            width: 60px;
+            height: 60px;
+
+            z-index: 3000;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #25d366;
+
+            color: white;
+
+            border-radius: 50%;
+
+            font-size: 27px;
+
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.28);
+
+            transition: 0.3s ease;
+
+            animation: whatsappPulse 2s infinite;
+        }
+
+        .whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes whatsappPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.35);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 5000;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background: rgba(0, 0, 0, 0.78);
+
+            backdrop-filter: blur(7px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-box {
+            position: relative;
+
+            width: 100%;
+            max-width: 480px;
+
+            padding: 35px;
+
+            background: #151515;
+
+            border: 1px solid var(--borda);
+
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+
+            top: 13px;
+            right: 17px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #999;
+
+            font-size: 28px;
+
+            cursor: pointer;
+        }
+
+        .modal-box h2 {
+            margin-bottom: 8px;
+
+            font-family: Georgia, serif;
+
+            font-size: 31px;
+
+            font-weight: normal;
+        }
+
+        .modal-box > p {
+            margin-bottom: 25px;
+
+            color: #888;
+
+            font-size: 13px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #ddd;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            background: #0d0d0d;
+
+            border: 1px solid #303030;
+
+            color: white;
+
+            outline: none;
+
+            border-radius: 3px;
+
+            transition: 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--dourado);
+
+            box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.08);
+        }
+
+        .form-submit {
+            width: 100%;
+
+            margin-top: 8px;
+
+            border: none;
+        }
+
+        /* =========================
+           ANIMAÇÃO SCROLL
+        ========================= */
+
+        .reveal {
+            opacity: 0;
+
+            transform: translateY(30px);
+
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease;
+        }
+
+        .reveal.show {
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            nav {
+                gap: 16px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+
+                gap: 55px;
+            }
+
+            .about-image {
+                width: 85%;
+
+                margin: auto;
+            }
+
+            .team-grid,
+            .testimonials {
+                grid-template-columns: 1fr;
+
+                max-width: 550px;
+
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* =========================
+           CELULAR
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 17px 6%;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            nav {
+                position: absolute;
+
+                top: calc(100% + 8px);
+
+                left: 5%;
+
+                width: 90%;
+
+                padding: 25px;
+
+                display: none;
+
+                flex-direction: column;
+
+                gap: 20px;
+
+                background: rgba(12, 12, 12, 0.98);
+
+                border: 1px solid var(--borda);
+
+                box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .nav-button {
+                width: 100%;
+
+                text-align: center;
+            }
+
+            .hero {
+                min-height: 92vh;
+
+                padding: 130px 7% 70px;
+
+                background:
+                    linear-gradient(
+                        rgba(0, 0, 0, 0.78),
+                        rgba(0, 0, 0, 0.72)
+                    ),
+                    url("https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=1200&q=85")
+                    center / cover no-repeat;
+            }
+
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            section {
+                padding: 75px 7%;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+
+                gap: 10px;
+            }
+
+            .gallery-item {
+                border-width: 2px;
+            }
+
+            .about-image {
+                width: 88%;
+            }
+
+            .about-image img {
+                height: 420px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+
+                text-align: center;
+            }
+        }
+
+        /* =========================
+           CELULAR PEQUENO
+        ========================= */
+
+        @media (max-width: 450px) {
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .hero h1 {
+                font-size: 44px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons .button {
+                width: 100%;
+            }
+
+            .gallery-grid {
+                gap: 7px;
+            }
+
+            .gallery-item {
+                border-radius: 3px;
+            }
+
+            .about-image {
+                width: 84%;
+            }
+
+            .about-image img {
+                height: 360px;
+            }
+
+            .modal-box {
+                padding: 28px 20px;
+            }
+
+            .whatsapp {
+                width: 55px;
+                height: 55px;
+
+                right: 16px;
+                bottom: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header id="header">
+
+        <div class="header-container">
+
+            <a href="#inicio" class="logo">
+                BLACK<span>.</span>
+            </a>
+
+            <button class="menu-button" id="menuButton">
+                ☰
+            </button>
+
+            <nav id="navbar">
+
+                <a href="#inicio">Início</a>
+
+                <a href="#servicos">Serviços</a>
+
+                <a href="#galeria">Galeria</a>
+
+                <a href="#sobre">Sobre</a>
+
+                <a href="#equipe">Equipe</a>
+
+                <a href="#faq">FAQ</a>
+
+                <a href="#agendamento" class="nav-button">
+                    Agendar
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero" id="inicio">
+
+        <div class="hero-content">
+
+            <div class="hero-tag">
+                BLACK BARBER
+            </div>
+
+            <h1>
+                Estilo que
+                <span>define.</span>
+            </h1>
+
+            <p>
+                Mais que uma barbearia. Uma experiência feita para
+                quem valoriza estilo, precisão e personalidade em
+                cada detalhe.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#agendamento" class="button button-gold">
+                    AGENDAR HORÁRIO
+                </a>
+
+                <a href="#servicos" class="button button-outline">
+                    VER SERVIÇOS
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SERVIÇOS
+    ========================= -->
+
+    <section id="servicos">
+
+        <div class="section-title">
+
+            <small>O que fazemos</small>
+
+            <h2>
+                Nossos serviços
+            </h2>
+
+            <p>
+                Técnicas profissionais, produtos selecionados e
+                atenção aos detalhes para entregar o acabamento
+                que você procura.
+            </p>
+
+        </div>
+
+
+        <div class="services-grid">
+
+            <div class="service-card reveal">
+
+                <div class="service-icon">
+                    ✂
+                </div>
+
+                <h3>
+                    Corte Masculino
+                </h3>
+
+                <p>
+                    Corte personalizado de acordo com seu estilo
+                    e formato de rosto.
+                </p>
+
+                <div class="service-price">
+                    R$ 40
+                </div>
+
+            </div>
+
+
+            <div class="service-card reveal">
+
+                <div class="service-icon">
+                    ◈
+                </div>
+
+                <h3>
+                    Corte + Barba
+                </h3>
+
+                <p>
+                    O combo completo para renovar seu visual.
+                </p>
+
+                <div class="service-price">
+                    R$ 65
+                </div>
+
+            </div>
+
+
+            <div class="service-card reveal">
+
+                <div class="service-icon">
+                    ▱
+                </div>
+
+                <h3>
+                    Barba
+                </h3>
+
+                <p>
+                    Modelagem, acabamento e cuidado completo.
+                </p>
+
+                <div class="service-price">
+                    R$ 30
+                </div>
+
+            </div>
+
+
+            <div class="service-card reveal">
+
+                <div class="service-icon">
+                    ★
+                </div>
+
+                <h3>
+                    Corte Premium
+                </h3>
+
+                <p>
+                    Corte detalhado com acabamento diferenciado.
+                </p>
+
+                <div class="service-price">
+                    R$ 55
+                </div>
+
+            </div>
+
+
+            <div class="service-card reveal">
+
+                <div class="service-icon">
+                    ◆
+                </div>
+
+                <h3>
+                    Sobrancelha
+                </h3>
+
+                <p>
+                    Design e acabamento para complementar o visual.
+                </p>
+
+                <div class="service-price">
+                    R$ 15
+                </div>
+
+            </div>
+
+
+            <div class="service-card reveal">
+
+                <div class="service-icon">
+                    ♨
+                </div>
+
+                <h3>
+                    Dia do Noivo
+                </h3>
+
+                <p>
+                    Uma experiência completa para momentos especiais.
+                </p>
+
+                <div class="service-price">
+                    A partir de R$ 120
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         GALERIA
+    ========================= -->
+
+    <section id="galeria">
+
+        <div class="section-title">
+
+            <small>Nosso trabalho</small>
+
+            <h2>
+                Galeria
+            </h2>
+
+            <p>
+                Alguns dos estilos produzidos pela nossa equipe.
+            </p>
+
+        </div>
+
+
+        <div class="gallery-grid">
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=900&q=85"
+                    alt="Corte masculino"
+                >
+
+                <div class="gallery-overlay">
+                    +
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=900&q=85"
+                    alt="Barbearia"
+                >
+
+                <div class="gallery-overlay">
+                    +
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=900&q=85"
+                    alt="Barbeiro trabalhando"
+                >
+
+                <div class="gallery-overlay">
+                    +
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1512690459411-b9245aed614b?auto=format&fit=crop&w=900&q=85"
+                    alt="Barba masculina"
+                >
+
+                <div class="gallery-overlay">
+                    +
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?auto=format&fit=crop&w=900&q=85"
+                    alt="Estilo masculino"
+                >
+
+                <div class="gallery-overlay">
+                    +
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=85"
+                    alt="Barbearia premium"
+                >
+
+                <div class="gallery-overlay">
+                    +
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SOBRE
+    ========================= -->
+
+    <section id="sobre">
+
+        <div class="about">
+
+            <div class="about-image reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1100&q=85"
+                    alt="Interior da barbearia"
+                >
+
+            </div>
+
+
+            <div class="about-text reveal">
+
+                <small>
+                    Sobre a Black
+                </small>
+
+                <h2>
+                    Seu estilo merece um lugar diferente.
+                </h2>
+
+                <p>
+                    A Black Barber nasceu para unir o estilo clássico
+                    das barbearias tradicionais com uma experiência
+                    moderna e sofisticada.
+                </p>
+
+                <p>
+                    Aqui, cada corte é pensado nos detalhes. Nosso
+                    objetivo é fazer você sair da cadeira sentindo
+                    que o visual realmente combina com você.
+                </p>
+
+                <div class="about-list">
+
+                    <div>
+                        <span>✓</span>
+                        Profissionais especializados
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Produtos de qualidade
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Ambiente premium
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         DIFERENCIAIS
+    ========================= -->
+
+    <section class="features">
+
+        <div class="features-grid">
+
+            <div class="feature reveal">
+
+                <div class="feature-icon">
+                    ✂
+                </div>
+
+                <h3>
+                    Precisão
+                </h3>
+
+                <p>
+                    Atenção aos mínimos detalhes.
+                </p>
+
+            </div>
+
+
+            <div class="feature reveal">
+
+                <div class="feature-icon">
+                    ★
+                </div>
+
+                <h3>
+                    Experiência
+                </h3>
+
+                <p>
+                    Profissionais preparados.
+                </p>
+
+            </div>
+
+
+            <div class="feature reveal">
+
+                <div class="feature-icon">
+                    ◆
+                </div>
+
+                <h3>
+                    Qualidade
+                </h3>
+
+                <p>
+                    Produtos selecionados.
+                </p>
+
+            </div>
+
+
+            <div class="feature reveal">
+
+                <div class="feature-icon">
+                    ♛
+                </div>
+
+                <h3>
+                    Estilo
+                </h3>
+
+                <p>
+                    Seu visual, sua identidade.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         EQUIPE
+    ========================= -->
+
+    <section id="equipe">
+
+        <div class="section-title">
+
+            <small>Nossos profissionais</small>
+
+            <h2>
+                Conheça a equipe
+            </h2>
+
+            <p>
+                Profissionais preparados para transformar seu
+                visual com técnica e personalidade.
+            </p>
+
+        </div>
+
+
+        <div class="team-grid">
+
+            <div class="team-card reveal">
+
+                <div class="team-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1582892467999-6f0c9f4f8d84?auto=format&fit=crop&w=800&q=85"
+                        alt="Barbeiro"
+                    >
+
+                </div>
+
+                <div class="team-info">
+
+                    <h3>
+                        Gabriel
+                    </h3>
+
+                    <p>
+                        Master Barber
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="team-card reveal">
+
+                <div class="team-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=800&q=85"
+                        alt="Barbeiro profissional"
+                    >
+
+                </div>
+
+                <div class="team-info">
+
+                    <h3>
+                        Lucas
+                    </h3>
+
+                    <p>
+                        Barber
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="team-card reveal">
+
+                <div class="team-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=800&q=85"
+                        alt="Barbeiro"
+                    >
+
+                </div>
+
+                <div class="team-info">
+
+                    <h3>
+                        Rafael
+                    </h3>
+
+                    <p>
+                        Barber
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         DEPOIMENTOS
+    ========================= -->
+
+    <section id="depoimentos">
+
+        <div class="section-title">
+
+            <small>Clientes</small>
+
+            <h2>
+                Quem conhece, volta.
+            </h2>
+
+        </div>
+
+
+        <div class="testimonials">
+
+            <div class="testimonial reveal">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "O atendimento é diferenciado. O corte ficou
+                    exatamente como eu queria e o ambiente é muito
+                    confortável."
+                </p>
+
+                <h4>
+                    — Matheus R.
+                </h4>
+
+            </div>
+
+
+            <div class="testimonial reveal">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "Já cortei em vários lugares, mas a Black virou
+                    meu lugar fixo. Muito capricho no acabamento."
+                </p>
+
+                <h4>
+                    — João V.
+                </h4>
+
+            </div>
+
+
+            <div class="testimonial reveal">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "Ambiente top, profissionais bons e o resultado
+                    sempre fica muito bom. Recomendo demais."
+                </p>
+
+                <h4>
+                    — Pedro M.
+                </h4>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FAQ
+    ========================= -->
+
+    <section id="faq">
+
+        <div class="section-title">
+
+            <small>Dúvidas</small>
+
+            <h2>
+                Perguntas frequentes
+            </h2>
+
+        </div>
+
+
+        <div class="faq">
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    Preciso agendar antes?
+
+                    <span>+</span>
+
+                </button>
+
+                <div class="faq-answer">
+                    Recomendamos o agendamento para garantir
+                    seu horário, principalmente em dias de maior movimento.
+                </div>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    Quanto tempo dura o corte?
+
+                    <span>+</span>
+
+                </button>
+
+                <div class="faq-answer">
+                    Normalmente entre 30 e 60 minutos, dependendo
+                    do serviço escolhido.
+                </div>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    Posso escolher o profissional?
+
+                    <span>+</span>
+
+                </button>
+
+                <div class="faq-answer">
+                    Sim. No momento do agendamento você pode
+                    solicitar o profissional de sua preferência.
+                </div>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    Quais formas de pagamento?
+
+                    <span>+</span>
+
+                </button>
+
+                <div class="faq-answer">
+                    Trabalhamos com Pix, dinheiro e cartões.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         AGENDAMENTO
+    ========================= -->
+
+    <section class="booking" id="agendamento">
+
+        <div class="booking-content">
+
+            <small>
+                RESERVE SEU HORÁRIO
+            </small>
+
+            <h2>
+                Seu próximo corte começa aqui.
+            </h2>
+
+            <p>
+                Escolha o serviço, selecione uma data e fale
+                diretamente com nossa equipe.
+            </p>
+
+            <button class="button button-gold" id="openModal">
+                AGENDAR AGORA
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <div class="footer-logo">
+                BLACK<span>.</span>
+            </div>
+
+            <div class="socials">
+
+                <a href="#" aria-label="Instagram">
+                    ◎
+                </a>
+
+                <a href="#" aria-label="Facebook">
+                    f
+                </a>
+
+                <a href="#" aria-label="TikTok">
+                    ♪
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 Black Barber. Todos os direitos reservados.
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         WHATSAPP
+    ========================= -->
+
+    <a
+        href="https://wa.me/5511999999999"
+        class="whatsapp"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Falar pelo WhatsApp"
+    >
+        💬
+    </a>
+
+
+    <!-- =========================
+         MODAL
+    ========================= -->
+
+    <div class="modal" id="modal">
+
+        <div class="modal-box">
+
+            <button class="modal-close" id="closeModal">
+                ×
+            </button>
+
+            <h2>
+                Agendar horário
+            </h2>
+
+            <p>
+                Preencha os dados e continue pelo WhatsApp.
+            </p>
+
+            <form id="bookingForm">
+
+                <div class="form-group">
+
+                    <label for="nome">
+                        Seu nome
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        placeholder="Digite seu nome"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="servico">
+                        Serviço
+                    </label>
+
+                    <select id="servico" required>
+
+                        <option value="">
+                            Escolha o serviço
+                        </option>
+
+                        <option value="Corte Masculino">
+                            Corte Masculino
+                        </option>
+
+                        <option value="Corte + Barba">
+                            Corte + Barba
+                        </option>
+
+                        <option value="Barba">
+                            Barba
+                        </option>
+
+                        <option value="Corte Premium">
+                            Corte Premium
+                        </option>
+
+                        <option value="Sobrancelha">
+                            Sobrancelha
+                        </option>
+
+                        <option value="Dia do Noivo">
+                            Dia do Noivo
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="data">
+                        Data desejada
+                    </label>
+
+                    <input
+                        type="date"
+                        id="data"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="button button-gold form-submit"
+                >
+                    CONTINUAR NO WHATSAPP
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        /* HEADER */
+
+        const header =
+            document.getElementById("header");
+
+        window.addEventListener("scroll", function () {
+
+            if (window.scrollY > 50) {
+
+                header.classList.add("scrolled");
+
+            } else {
+
+                header.classList.remove("scrolled");
+
+            }
+
+        });
+
+
+        /* MENU MOBILE */
+
+        const menuButton =
+            document.getElementById("menuButton");
+
+        const navbar =
+            document.getElementById("navbar");
+
+        menuButton.addEventListener("click", function () {
+
+            navbar.classList.toggle("active");
+
+        });
+
+
+        const navLinks =
+            navbar.querySelectorAll("a");
+
+        navLinks.forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                navbar.classList.remove("active");
+
+            });
+
+        });
+
+
+        /* ANIMAÇÕES */
+
+        const revealElements =
+            document.querySelectorAll(".reveal");
+
+        if ("IntersectionObserver" in window) {
+
+            const observer =
+                new IntersectionObserver(
+                    function (entries) {
+
+                        entries.forEach(function (entry) {
+
+                            if (entry.isIntersecting) {
+
+                                entry.target.classList.add("show");
+
+                                observer.unobserve(entry.target);
+
+                            }
+
+                        });
+
+                    },
+                    {
+                        threshold: 0.12
+                    }
+                );
+
+            revealElements.forEach(function (element) {
+
+                observer.observe(element);
+
+            });
+
+        } else {
+
+            revealElements.forEach(function (element) {
+
+                element.classList.add("show");
+
+            });
+
+        }
+
+
+        /* FAQ */
+
+        const faqQuestions =
+            document.querySelectorAll(".faq-question");
+
+        faqQuestions.forEach(function (question) {
+
+            question.addEventListener("click", function () {
+
+                const item =
+                    question.parentElement;
+
+                const allItems =
+                    document.querySelectorAll(".faq-item");
+
+                allItems.forEach(function (otherItem) {
+
+                    if (otherItem !== item) {
+
+                        otherItem.classList.remove("active");
+
+                    }
+
+                });
+
+                item.classList.toggle("active");
+
+            });
+
+        });
+
+
+        /* MODAL */
+
+        const modal =
+            document.getElementById("modal");
+
+        const openModal =
+            document.getElementById("openModal");
+
+        const closeModal =
+            document.getElementById("closeModal");
+
+
+        openModal.addEventListener("click", function () {
+
+            modal.classList.add("active");
+
+        });
+
+
+        closeModal.addEventListener("click", function () {
+
+            modal.classList.remove("active");
+
+        });
+
+
+        modal.addEventListener("click", function (event) {
+
+            if (event.target === modal) {
+
+                modal.classList.remove("active");
+
+            }
+
+        });
+
+
+        /* AGENDAMENTO */
+
+        const bookingForm =
+            document.getElementById("bookingForm");
+
+
+        bookingForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            const nome =
+                document.getElementById("nome").value;
+
+            const servico =
+                document.getElementById("servico").value;
+
+            const data =
+                document.getElementById("data").value;
+
+
+            const mensagem =
+                `Olá! Meu nome é ${nome}. Gostaria de agendar ${servico} para o dia ${data}.`;
+
+
+            const numero =
+                "5511999999999";
+
+
+            const whatsappUrl =
+                `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+
+
+            window.open(
+                whatsappUrl,
+                "_blank"
+            );
+
+        });
+
+
+        /* DATA MÍNIMA */
+
+        const dateInput =
+            document.getElementById("data");
+
+        const hoje =
+            new Date().toISOString().split("T")[0];
+
+        dateInput.min = hoje;
+
+    </script>
+
+</body>
+</html>
